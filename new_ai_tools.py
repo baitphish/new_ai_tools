@@ -17,9 +17,9 @@ def get_new_ai_tools():
       })
   return tools
 
-def upload_tools_to_google_sheet(tools):
+def upload_tools_to_google_sheet(tools, sheet_url):
   """Uploads the list of new AI tools to a Google Sheet document."""
-  sheet = gspread.create("New AI Tools")
+  sheet = gspread.create(sheet_url)
   sheet.append_row(["Name", "Description", "URL"])
   for tool in tools:
     sheet.append_row(tool.values())
@@ -27,7 +27,7 @@ def upload_tools_to_google_sheet(tools):
 def github_launch():
   """Runs the script on GitHub."""
   tools = get_new_ai_tools()
-  upload_tools_to_google_sheet(tools)
+  upload_tools_to_google_sheet(tools, "https://docs.google.com/spreadsheets/d/1ARkNZlgaSTxCDHlWFvig33Po22a1F9Qxfd8Q3NHwCMk/edit?usp=sharing")
 
 if __name__ == "__main__":
   github_launch()
